@@ -1,0 +1,28 @@
+======================================================================================================
+echo "Mensaje" | mail -s "Asunto" ana@correo.panaderia.com
+
+> composer create-project laravel/laravel:^8.0 example-app	<--CREAR EL PROYECTO LARAVEL 8
+
+PRUEBAS DE CORREO EN MAILTRAP: https://mailtrap.io/	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+> php artisan route:list					<--VER MIS RUTAS DISPONIBLE
+

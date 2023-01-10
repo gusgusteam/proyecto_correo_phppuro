@@ -1,0 +1,96 @@
+
+# cp correoconfig.txt /var/www/
+
+
+
+CONFIGURACION PARA ACTUALIZAR
+-------------------------------------------------------
+
+# cd /var/www
+# sudo chown -R $USER:root /var/www
+# rm -r html
+# git clone https://github.com/kikeProgramer007/enviarcorreolaravel8.git
+# mv enviarcorreolaravel8 html
+# sudo chown www-data:www-data /var/www/html/ -R
+# cd /var/www/html
+# composer update
+# sudo mv server.php index.php
+# cd /var/www
+# sudo chmod -R 755 html
+# cd /var/www/html
+# sudo chmod -R 777 storage
+# systemctl restart apache2
+# sudo a2enmod rewrite
+
+# sudo nano .htaccess
+
+-------------------(COPIA LO DE ADENTRO)----------------
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.)/$ /$1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule . - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
+
+------------------------------------------------------------------  
+  PARA GUARDAR CAMBIOS PRESIONAMOS:
+   Ctrl+x
+   Y
+   Enter
+
+# sudo cp .env.example .env
+# sudo php artisan key:generate
+# sudo nano .env
+
+-----------------------(COPIA LO DE ADENTRO)----------------------
+ASSET_URL=/public
+------------------------------------------------------------------ 
+    #CONFIGURAMOS LA BASE DE DATOS EJEMPLO:
+    ....
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=empresa
+    DB_USERNAME=root
+    DB_PASSWORD=123456789
+    ...
+    # CONFIGURACION PARA EL SERVIDOR FEDORA
+    ...
+    MAIL_MAILER=smtp
+    MAIL_HOST=correo.panaderia.com
+    MAIL_PORT=25
+    MAIL_USERNAME=contacto@correo.panaderia.com
+    MAIL_PASSWORD=contacto123
+    MAIL_ENCRYPTION=null
+    MAIL_FROM_ADDRESS=contacto@correo.panaderia.com
+    MAIL_FROM_NAME="Contacto-Panaderia"
+    PARA GUARDAR CAMBIOS PRESIONAMOS:
+    ...
+Ctrl+x
+Y
+Enter
+-----------------------------------------------------------------------------
+RUTAS DE CONFIGURACION:
+# nano .env
+# nano /var/www/html/app/Http/Controllers/ContactanosController.php
+
+# sudo php artisan storage:link
+# sudo php artisan config:cache
+# sudo systemctl restart apache2
+# php artisan migrate:fresh --seed
+# sudo php artisan optimize:clear
